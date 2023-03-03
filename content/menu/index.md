@@ -2,6 +2,8 @@
 headless: true
 ---
 
+- **Nosotros**
+
 - **Shortcodes**
 - [Nosotros]({{< relref "/docs/shortcodes/nosotros" >}})
 - [p5]({{< relref "/docs/shortcodes/p5" >}})
