@@ -1,8 +1,8 @@
 ---
 weight: 1
 ---
-# Valentina Colmenares
+# Valentina Colmenares Leguízamo
 <p style="text-align: justify;">
-Estudiante de ingeniería de sistemas en la Universidad Nacional de Colombia. Me gusta mucho hacer ejercicio, leer, ver películas, conocer lugares nuevos, bailiar, pertenezco al proyecto estudiantil Mermaids Dance Team donde competimos a nivel nacional e internacional en la categoría POM OPEN. Me interesa mucho la ciberseguridad y el desarrollo tanto Web como móvil, he trabajado con los lenguajes de programación Python y Java.
+Estudiante de ingeniería de sistemas en la Universidad Nacional de Colombia. Me gusta mucho hacer ejercicio, leer, ver películas, conocer lugares nuevos, bailiar, pertenezco al proyecto estudiantil Mermaids Dance Team donde competimos a nivel nacional e internacional en la categoría POM OPEN. Me interesa mucho la ciberseguridad y el desarrollo tanto Web como móvil y he trabajado con los lenguajes de programación Python y Java.
 
 </p> 
