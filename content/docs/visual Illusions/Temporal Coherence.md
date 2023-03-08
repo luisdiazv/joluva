@@ -1,6 +1,6 @@
 ---
 weight: 5
 ---
-# Temporal Coherence
+# __Temporal Coherence__
 
 ### Ejercicio 9 

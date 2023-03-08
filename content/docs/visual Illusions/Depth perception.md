@@ -1,7 +1,7 @@
 ---
 weight: 6
 ---
-# Depth Perception
+# __Depth Perception__
 
 ## Biocular cues
 

@@ -1,16 +1,16 @@
 ---
 weight: 3
 ---
-# Masking
+# __Masking__
 
-## Visual Masking
+## __Visual Masking__
 
 ### Ejercicio 5 
 
-## Image Quantization
+## __Image Quantization__
 
 ### Ejercicio 6 
 
-## Convolution Masks 
+## __Convolution Masks__
 
 ### Ejercicio 7

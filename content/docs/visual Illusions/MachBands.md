@@ -1,7 +1,7 @@
 ---
 weight: 2
 ---
-# Mach Bands
+# __Mach Bands__
 
 ## Terrain with Perlin noise 
 

@@ -2,7 +2,7 @@
 weight: 4
 ---
 
-# Spacial Coherence
+# __Spacial Coherence__
 
 ## Pixelator Demo
 
