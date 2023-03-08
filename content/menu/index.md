@@ -6,6 +6,7 @@ headless: true
 
 - **Shortcodes**
 - [Nosotros]({{< relref "/docs/shortcodes/nosotros" >}})
+- [Visual Illusions]({{< relref "/docs/shortcodes/Visual Illusions" >}})
 - [p5]({{< relref "/docs/shortcodes/p5" >}})
 - [Buttons]({{< relref "/docs/shortcodes/buttons" >}})
 - [Columns]({{< relref "/docs/shortcodes/columns" >}})
