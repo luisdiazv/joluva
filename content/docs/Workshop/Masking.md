@@ -9,14 +9,13 @@ Implement a kinegram and some moiré patterns which are close related visual phe
 {{< /hint >}}
 
 ## Kinegram
-
 {{< details title="p5-iframe markdown" open=false >}}
 {{< highlight html >}}
 {{</* p5-iframe sketch="/showcase/sketches/kg.js" width="600" height="600" */>}}
 {{< /highlight >}}
 {{< /details >}}
 
-{{< p5-iframe sketch="/showcase/sketches/kg.js" width="100%" height="100%" >}}
+{{< p5-iframe sketch="/showcase/sketches/kg.js" width="700" height="700" >}}
 
 
 ## Moiré pattern
