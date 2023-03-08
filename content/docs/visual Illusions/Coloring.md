@@ -6,7 +6,7 @@ weight: 1
 ## __Color blindness__ 
 
 ### Ejercicio 2
-{{< p5-iframe sketch="/showcase/sketches/vi_3.js" width="725" height="425" >}}
+{{< p5-iframe sketch="/showcase/sketches/vi_3.js" width="624" height="624" >}}
 
 ## __Color Models__
 
