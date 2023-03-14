@@ -1,4 +1,4 @@
-let colorMatrix = [1, 0, 0, 0, 1, 0, -0.86744736, 1.86727089, 0];
+let colorMatrix = [1, 0, 0, 0, 1, 0, -0.86744736, 1.86727089, 0]; //Tritanopia
 
 function draw() {
   createCanvas(400,300);

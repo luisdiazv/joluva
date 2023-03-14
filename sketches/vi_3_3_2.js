@@ -1,5 +1,4 @@
-let colorMatrix = [0, 1.05118294, -0.05116099, 0, 1, 0, 0, 0, 1];
-
+let colorMatrix = [1, 0, 0, 0.9513092, 0, 0.04866992, 0, 0, 1]; //Deuteranopia
 function draw() {
   createCanvas(400,300);
   let img = loadImage('/showcase/sketches/store.jpg',function(){;
