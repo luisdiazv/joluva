@@ -7,7 +7,7 @@ weight: 1
 
 ### Imagen Original
 
-{{< p5-iframe sketch="/showcase/color_blindness/sketches/vi_3_1.js" width="425" height="325" >}}
+{{< p5-iframe sketch="/showcase/sketches/vi_3_1.js" width="425" height="325" >}}
 
 ### Simulando el daltonismo
 Para éstos ejercicios decidimos trabajar sobre los dicromatismos, debido a que es el tipo de daltonismo más común, y son los cuales se pueden simular y corregir con mayor exactitud.
@@ -15,32 +15,33 @@ Para éstos ejercicios decidimos trabajar sobre los dicromatismos, debido a que 
 #### Protanopia
 La protanopia es el tipo de daltonismo en el cual no funcionan los conos que perciben las ondas electromagnéticas largas que representan el rojo.
 
-{{< p5-iframe sketch="/showcase/color_blindness/sketches/vi_3_2_1.js" width="425" height="325" >}}
+{{< p5-iframe sketch="/showcase/sketches/vi_3_2_1.js" width="425" height="325" >}}
 
 #### Deuteranopia
 La deuteranopia es el tipo de daltonismo en el cual no funcionan los conos que perciben las ondas electromagnéticas medianas que representan el verde.
 
-{{< p5-iframe sketch="/showcase/color_blindness/sketches/vi_3_2_2.js" width="425" height="325" >}}
+{{< p5-iframe sketch="/showcase/sketches/vi_3_2_2.js" width="425" height="325" >}}
 
 #### Tritanopia
 La tritanopia es el tipo de daltonismo en el cual no funcionan los conos que perciben las ondas electromagnéticas cortas que representan el color azul.
 
-{{< p5-iframe sketch="/showcase/color_blindness/sketches/vi_3_2_3.js" width="425" height="325" >}}
+{{< p5-iframe sketch="/showcase/sketches/vi_3_2_3.js" width="425" height="325" >}}
 
 ### Corrigiendo el daltonismo
 
 #### Protanopia
-{{< p5-iframe sketch="/showcase/color_blindness/sketches/vi_3_3_1.js" width="425" height="325" >}}
+{{< p5-iframe sketch="/showcase/sketches/vi_3_3_1.js" width="425" height="325" >}}
 
 #### Deuteranopia
-{{< p5-iframe sketch="/showcase/color_blindness/sketches/vi_3_3_2.js" width="425" height="325" >}}
+{{< p5-iframe sketch="/showcase/sketches/vi_3_3_2.js" width="425" height="325" >}}
 
 #### Tritanopia
-{{< p5-iframe sketch="/showcase/color_blindness/sketches/vi_3_3_3.js" width="425" height="325" >}}
+{{< p5-iframe sketch="/showcase/sketches/vi_3_3_3.js" width="425" height="325" >}}
 
 
 ### Referencias
 https://ixora.io/projects/colorblindness/color-blindness-simulation-research/
+http://vision.psychol.cam.ac.uk/jdmollon/papers/colourmaps.pdf
 
 ## __Color Models__
 
