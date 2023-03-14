@@ -6,4 +6,12 @@ weight: 2
 ## Terrain with Perlin noise 
 
 ### Ejercicio 3
-{{< p5-iframe sketch="/showcase/sketches/vi_4.js" width="725" height="425" >}}
+
+Implementación de Perlin Noise:
+
+{{< p5-iframe sketch="/showcase/sketches/vi_4_1.js" width="624" height="624" >}}
+
+Implementación propia:
+Se busca emular un terreno existente
+
+{{< p5-iframe sketch="/showcase/sketches/vi_4_2.js" width="624" height="624" >}}
