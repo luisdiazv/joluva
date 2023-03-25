@@ -1,5 +1,5 @@
 let img;
-let brightness_reduction = 0;
+let brightnessValue = 45;
 
 function calculate_hue(r_prime, g_prime, b_prime) {
   // Geometric method
@@ -94,32 +94,15 @@ function preload() {
 function setup() {
   createCanvas(600, img.height*2);
   background(255);
+  inp = createInput('');
+  inp.position(0, 0);
+  inp.size(100);
+  inp.input(myInputEvent);
 }
 
-function keyPressed() {
-  if (keyCode === 68) { // 
-    brightness_reduction -= 5;
 
-  }
-  else if (keyCode === 65) { // 
-    brightness_reduction += 5;
-
-  }
-  else if (keyCode === 87) { // 
-    brightness_reduction -= 1;
-  }
-  else if (keyCode === 83) { //
-    brightness_reduction += 1;
-  }
-
-  if (brightness_reduction > 100) {
-    brightness_reduction = 100;
-  }
-  else if (brightness_reduction < -100) {
-    brightness_reduction = -100;
-  }
-
-
+function myInputEvent() {
+  brightnessValue = parseInt(this.value());
 }
 
 function draw() {
@@ -130,7 +113,7 @@ function draw() {
 
   colorMode(RGB);
   background(255);
-  text("Brightness reduction: " + brightness_reduction, 10, 510);
+  text("Brightness value: " + brightnessValue, 10, 510);
 
   image(img, 0, 20);
   text("Original Image", img.width / 3, 10);
@@ -146,7 +129,7 @@ function draw() {
   for (let i = 0; i < img.width; i++) {
     for (let j = 0; j < img.height; j++) {
       let new_hsl_color = set_hsl(get_pixel_color(i, j, img.width));
-      new_hsl_color[2] = new_hsl_color[2] - (brightness_reduction  );
+      new_hsl_color[2] = brightnessValue;
       changed_img.set(i, j, color(new_hsl_color));
     }
   }

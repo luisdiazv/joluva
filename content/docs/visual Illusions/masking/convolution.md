@@ -1,3 +1,21 @@
+---
+weight: 3
+---
+
+
+
+## Convolution and histogram
+{{< details title="p5-iframe markdown" open=false >}}
+{{< highlight html >}}
+{{</* p5-iframe sketch="/showcase/sketches/histogram.js" width="780" height="1000" */>}}
+{{< /highlight >}}
+{{< /details >}}
+
+
+{{< p5-iframe sketch="/showcase/sketches/histogram.js" width="780" height="1000" >}}
+
+### Code
+{{< highlight js >}}
 var red_arr = new Array(256);
 var green_arr = new Array(256);
 var blue_arr = new Array(256);
@@ -223,3 +241,4 @@ function keyPressed() {
   }
 
 }
+{{< /highlight >}}

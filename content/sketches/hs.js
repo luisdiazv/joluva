@@ -2,13 +2,16 @@ var red_arr = new Array(256);
 var green_arr = new Array(256);
 var blue_arr = new Array(256);
 var showFilter = false;
-var inp;
-let filter = [
+const filter2 = [
   [-2, -1, 0],
   [-1, 1, 1],
-  [0, 1, 2]
+  [0, 1, 2],
 ];
-
+const filter = [
+  [1, 1, 1],
+  [-1, 0, 1],
+  [-1, 0, 1],
+];
 var colors = new Array(3);
 
 var leftM = 30;
@@ -22,27 +25,8 @@ function preload() {
 function getIndex(x, y) {
   return (x + y * img.width) * 4;
 }
-
-function myInputEvent() {
-  let filterRows = this.value().substring(1,this.value().length-1).split(',');
-
-  let newFilter = new Array();
-  for(let i=0;i<3;i++){
-    let tmp = new Array();
-    for(let j=0;j<3;j++){
-        tmp.push(parseInt(filterRows[3*i+j]));
-    }
-    newFilter.push(tmp);
-  }
-  filter = newFilter;
-}
-
 function setup() {
   createCanvas(img.width + 2 * leftM, img.height * 2 + 2 * upM);
-  inp = createInput('');
-  inp.position(0, 0);
-  inp.size(100);
-  inp.input(myInputEvent);
     
   for (let i = 0; i < 256; i++) {
     red_arr[i] = green_arr[i] = blue_arr[i] = 0;
@@ -121,7 +105,6 @@ function calculateHistogram(imagen) {
 
 function draw() {
   background(220);
-  
   //image(img, leftM, upM);
   
   if (showFilter)
@@ -183,9 +166,9 @@ function convolute(x, y) {
       let pix = getIndex(x + i, y + j);
       let factor = filter[j + 1][i + 1];
 
-      sumR += (img.pixels[pix + 0] * factor);
-      sumG += (img.pixels[pix + 1] * factor);
-      sumB += (img.pixels[pix + 2] * factor);
+      sumR += img.pixels[pix + 0] * factor;
+      sumG += img.pixels[pix + 1] * factor;
+      sumB += img.pixels[pix + 2] * factor;
     }
   }
   return color(
@@ -197,29 +180,10 @@ function convolute(x, y) {
 function keyPressed() {
   if (keyCode === 84) {
     showFilter = !showFilter
-    if (showFilter){
-      filtered = createImage(img.width, img.height);
-      filtered.loadPixels();
-      for (let i = 0; i < img.width; i++) {
-        for (let j = 0; j < img.height; j++) {
-          let idx = getIndex(i, j);
-          let filteredPixel = convolute(i, j);
-          filtered.pixels[idx + 0] = red(filteredPixel);
-          filtered.pixels[idx + 1] = green(filteredPixel);
-          filtered.pixels[idx + 2] = blue(filteredPixel);
-          filtered.pixels[idx + 3] = alpha(filteredPixel);
-        }
-      }
-      filtered.updatePixels();
-      updatePixels();
-      strokeWeight(4);
+    if (showFilter)
       calculateHistogram(filtered);
-      console.log(filter);
-    }
-    else{
+    else
       calculateHistogram(img);
-    }
-      
   }
 
 }
