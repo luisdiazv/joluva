@@ -1,49 +1,40 @@
 var red_arr = new Array(256);
 var green_arr = new Array(256);
 var blue_arr = new Array(256);
-var showFilter = false;
-var inp;
-let filter = [
-  [-2, -1, 0],
-  [-1, 1, 1],
-  [0, 1, 2]
-];
+
 
 var colors = new Array(3);
-
+var img,img1,img2,img3;
 var leftM = 30;
 var upM = 15;
 
 
 function preload() {
-  img = loadImage("/showcase/sketches/lennna.jpg");
+  img1 = loadImage("/showcase/sketches/lennna.jpg");
+  img2 = loadImage("/showcase/sketches/mandrill.png");
+  img3 = loadImage("/showcase/sketches/sample_cb.png");
 }
 
 function getIndex(x, y) {
   return (x + y * img.width) * 4;
 }
 
-function myInputEvent() {
-  let filterRows = this.value().substring(1,this.value().length-1).split(',');
-
-  let newFilter = new Array();
-  for(let i=0;i<3;i++){
-    let tmp = new Array();
-    for(let j=0;j<3;j++){
-        tmp.push(parseInt(filterRows[3*i+j]));
-    }
-    newFilter.push(tmp);
-  }
-  filter = newFilter;
-}
 
 function setup() {
+  img = img1;
   createCanvas(img.width + 2 * leftM, img.height * 2 + 2 * upM);
-  inp = createInput('');
-  inp.position(0, 0);
-  inp.size(100);
-  inp.input(myInputEvent);
-    
+  button1 = createButton("Imagen 1");
+  button2 = createButton("Imagen 2");
+  button3 = createButton("Imagen 3");
+  button1.mouseClicked(assingImg1);
+  button2.mouseClicked(assingImg2);
+  button3.mouseClicked(assingImg3);
+  button1.size(100,50);
+  button2.size(100,50);
+  button3.size(100,50);
+  button1.position(10,10);
+  button2.position(115,10);
+  button3.position(220,10);
   for (let i = 0; i < 256; i++) {
     red_arr[i] = green_arr[i] = blue_arr[i] = 0;
   }
@@ -65,12 +56,6 @@ function setup() {
       red_arr[r]++;
       green_arr[g]++;
       blue_arr[b]++;
-      //kernel
-      let filteredPixel = convolute(i, j);
-      filtered.pixels[idx + 0] = red(filteredPixel);
-      filtered.pixels[idx + 1] = green(filteredPixel);
-      filtered.pixels[idx + 2] = blue(filteredPixel);
-      filtered.pixels[idx + 3] = alpha(filteredPixel);
     }
   }
 
@@ -124,10 +109,7 @@ function draw() {
   
   //image(img, leftM, upM);
   
-  if (showFilter)
-    image(filtered, leftM, upM);
-  else
-    image(img, leftM, upM);
+  image(img, leftM, upM);
   stroke(0);
   
 
@@ -174,52 +156,21 @@ function paint(color, array) {
 }
 
 
-function convolute(x, y) {
-  let sumR = 0;
-  let sumG = 0;
-  let sumB = 0;
-  for (let i = -1; i <= 1; i++) {
-    for (let j = -1; j <= 1; j++) {
-      let pix = getIndex(x + i, y + j);
-      let factor = filter[j + 1][i + 1];
 
-      sumR += (img.pixels[pix + 0] * factor);
-      sumG += (img.pixels[pix + 1] * factor);
-      sumB += (img.pixels[pix + 2] * factor);
-    }
-  }
-  return color(
-    sumR, sumG, sumB
-  );
+
+
+
+function assingImg1() {
+  img = img1;
+  calculateHistogram(img);
 }
 
+function assingImg2() {
+  img = img2;
+  calculateHistogram(img);
+}
 
-function keyPressed() {
-  if (keyCode === 84) {
-    showFilter = !showFilter
-    if (showFilter){
-      filtered = createImage(img.width, img.height);
-      filtered.loadPixels();
-      for (let i = 0; i < img.width; i++) {
-        for (let j = 0; j < img.height; j++) {
-          let idx = getIndex(i, j);
-          let filteredPixel = convolute(i, j);
-          filtered.pixels[idx + 0] = red(filteredPixel);
-          filtered.pixels[idx + 1] = green(filteredPixel);
-          filtered.pixels[idx + 2] = blue(filteredPixel);
-          filtered.pixels[idx + 3] = alpha(filteredPixel);
-        }
-      }
-      filtered.updatePixels();
-      updatePixels();
-      strokeWeight(4);
-      calculateHistogram(filtered);
-      console.log(filter);
-    }
-    else{
-      calculateHistogram(img);
-    }
-      
-  }
-
+function assingImg3() {
+  img = img3;
+  calculateHistogram(img);
 }
