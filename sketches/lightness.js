@@ -1,63 +1,6 @@
 let img;
 let brightnessValue = 45;
 
-function calculate_hue(r_prime, g_prime, b_prime) {
-  // Geometric method
-  let c_max = max(r_prime, g_prime, b_prime); // max of r', g', b'
-  let c_min = min(r_prime, g_prime, b_prime); // min of r', g', b'
-  let delta = c_max - c_min; // delta rgb
-  let h = 0;
-  let s = 0;
-  if (delta == 0) {
-    h = 0; // Can be any color
-  } else if (c_max == r_prime) {
-    h = 60 * (((g_prime - b_prime) / delta) % 6);
-  } else if (c_max == g_prime) {
-    h = 60 * ((b_prime - r_prime) / delta + 2);
-  } else if (c_max == b_prime) {
-    h = 60 * ((r_prime - g_prime) / delta + 4);
-  }
-
-  if (c_max) {
-    s = delta / c_max;
-  }
-
-  return h;
-}
-
-function calculate_saturation(r_prime, g_prime, b_prime) {
-  // Distance from center to max
-  let c_max = max(r_prime, g_prime, b_prime); // max of r', g', b'
-  let c_min = min(r_prime, g_prime, b_prime); // min of r', g', b'
-  let delta = c_max - c_min; // delta rgb
-  let s = 0;
-  if (c_max) {
-    s = 1 - c_min / c_max;
-  }
-
-  return s * 100;
-}
-
-
-function calculate_hsl_saturation(r_prime, g_prime, b_prime) {
-  // Distance from center to max
-  let c_max = max(r_prime, g_prime, b_prime); // max of r', g', b'
-  let c_min = min(r_prime, g_prime, b_prime); // min of r', g', b'
-  let delta = c_max - c_min; // delta rgb
-  let s = 0;
-  if (calculate_lightness(r_prime, g_prime, b_prime) != 0 && calculate_lightness(r_prime, g_prime, b_prime) != 100) {
-    s = delta / (1 - abs(2 * c_max - 1));
-  }
-
-  return s * 100;
-}
-
-function calculate_lightness(r_prime, g_prime, b_prime) {
-  let c_max = max(r_prime, g_prime, b_prime); // max of r', g', b'
-  let c_min = min(r_prime, g_prime, b_prime); // min of r', g', b'
-  let l = (c_max + c_min) / 2;
-  return l * 100;
-}
 
 function get_pixel_position(x, y, width) {
   return (x + y * width) * 4;
@@ -69,21 +12,31 @@ function get_pixel_color(x, y, width) {
     img.pixels[xy],
     img.pixels[xy + 1],
     img.pixels[xy + 2],
-    img.pixels[xy + 3],
+    //img.pixels[xy + 3],
   ];
 }
 
 
-function set_hsl(colour) {
-  let r_prime = colour[0] / 255;
-  let g_prime = colour[1] / 255;
-  let b_prime = colour[2] / 255;
+function rgbToHsl(r, g, b) {
+  r /= 255, g /= 255, b /= 255;
 
-  let h = calculate_hue(r_prime, g_prime, b_prime);
-  let s = calculate_hsl_saturation(r_prime, g_prime, b_prime);
-  let l = calculate_lightness(r_prime, g_prime, b_prime);
-  let hsl = [h, s, l];
-  return hsl;
+  let max = Math.max(r, g, b), min = Math.min(r, g, b);
+  let h, s, l = (max + min) / 2;
+
+  if (max == min) {
+    h = s = 0;
+  } else {
+    let d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    switch (max) {
+      case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+      case g: h = (b - r) / d + 2; break;
+      case b: h = (r - g) / d + 4; break;
+    }
+    h /= 6;
+  }
+
+  return [h, s, l];
 }
 
 function preload() {
@@ -122,13 +75,14 @@ function draw() {
 
   // Change image brightness with HSL color mode
 
-  colorMode(HSL);
+  colorMode(HSL,1,1,100);
   changed_img = img.get();
   changed_img.loadPixels();
 
   for (let i = 0; i < img.width; i++) {
     for (let j = 0; j < img.height; j++) {
-      let new_hsl_color = set_hsl(get_pixel_color(i, j, img.width));
+      let pixel_colors = get_pixel_color(i, j, img.width);
+      let new_hsl_color = rgbToHsl(pixel_colors[0],pixel_colors[1],pixel_colors[2]);
       new_hsl_color[2] = brightnessValue;
       changed_img.set(i, j, color(new_hsl_color));
     }
