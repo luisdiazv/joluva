@@ -163,3 +163,5 @@ En cuanto al futuro trabajo relacionado con el modelo de color HSL, se espera qu
 <p style="text-align: justify;">
 Además, se espera que el modelo de color HSL se siga utilizando y desarrollando en una amplia gama de aplicaciones, incluyendo la realidad virtual y aumentada, la automatización del diseño gráfico, la visualización científica y médica, y la generación automática de paletas de colores.
 </p>
+
+
