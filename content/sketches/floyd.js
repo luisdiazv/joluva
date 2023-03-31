@@ -1,17 +1,17 @@
 let horse;
 
 function preload() {
-  horse = loadImage("horse.png");
+  horse = loadImage("/showcase/sketches/horse.png");
 }
 
 function setup() {
-  createCanvas(1024, 512);
+  createCanvas(720, 375);
 
   image(horse, 0, 0);
   makeDithered(horse, 1);
-  image(horse, 512, 0);
+  image(horse, 370, 0);
   // Apply gray filter to the whole canvas
-  filter(GRAY);
+  // filter(GRAY);
 }
 
 function imageIndex(img, x, y) {

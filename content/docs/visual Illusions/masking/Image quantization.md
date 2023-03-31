@@ -106,7 +106,7 @@ function keyPressed() {
 {{< /highlight >}}
 {{< /details >}}
 
-{{< p5-iframe sketch="/showcase/sketches/pattern.js" width="740" height="450" >}}
+{{< p5-iframe sketch="/showcase/sketches/pattern.js" width="524" height="524" >}}
 
 <p style="text-align: justify;">
 En esta aplicación de efecto visual dither el programa crea una animación en la que se combinan diferentes patrones de dither con diferentes efectos visuales generados por la interacción del mouse y la animación de ruido y gradiente. Cada vez que se le da click el patrón visualizado cambia el escenario mostrando un patrón diferente.[2]</p>
@@ -116,17 +116,17 @@ En esta aplicación de efecto visual dither el programa crea una animación en l
 let horse;
 
 function preload() {
-    horse = loadImage("horse.png");
+  horse = loadImage("/showcase/sketches/horse.png");
 }
 
 function setup() {
-  createCanvas(1024, 512);
+  createCanvas(720, 375);
 
   image(horse, 0, 0);
   makeDithered(horse, 1);
-  image(horse, 512, 0);
+  image(horse, 370, 0);
   // Apply gray filter to the whole canvas
-  filter(GRAY);
+  // filter(GRAY);
 }
 
 function imageIndex(img, x, y) {
@@ -209,7 +209,7 @@ function addError(img, factor, x, y, errR, errG, errB) {
 {{< /highlight >}}
 {{< /details >}}
 
-{{< p5-iframe sketch="/showcase/sketches/floyd.js" width="740" height="450" >}}
+{{< p5-iframe sketch="/showcase/sketches/floyd.js" width="740" height="400" >}}
 
 <p style="text-align: justify;">
 En este ejemplo se aplica un efecto dither punteado. Al cargar la imagen del caballo la función makeDithered() en el código se encarga de aplicarle dicho efecto. Primero carga los pixeles de la imagen utilizando la función loadPixels(), luego los recorre todos y para cada píxel encuentra el color más cercano que se puede representar con un número limitado de valores de color. El error entre el color original y el color más cercano se distribuye a los píxeles adyacentes utilizando la función "distributeError()". Finalmente, se actualizan los píxeles de la imagen utilizando la función "updatePixels()". [3]</p>
@@ -228,4 +228,4 @@ A pesar de que la animación dither tiene una larga historia y ha sido utilizada
 
 [2] https://www.reddit.com/r/p5js/comments/ucmpki/custom_1bit_dithering/
 
-[3] https://www.youtube.com/watch?v=0L2n8Tg2FwI
+[3] https://thecodingtrain.com/challenges/90-dithering

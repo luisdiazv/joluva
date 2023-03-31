@@ -6,13 +6,37 @@ var currentScene;
 var WHITE;
 
 function preload() {
-  ditherTemplates = [loadImage('dithers/4x28.png'), 
-                     loadImage('dithers/4x36.png'), 
-                     loadImage('dithers/4x68.png'), 
-                     loadImage('dithers/6x42 LINES.png'), 
-                     loadImage('dithers/5x30 CIRCLES.png'),
-                     loadImage('dithers/5x30 CIRCUITS.png'),
-                     loadImage('dithers/5x45 DiagLines.png')];
+  ditherTemplates = [loadImage('/showcase/sketches/dithers/4x28.png'), 
+                     loadImage('/showcase/sketches/dithers/4x36.png'), 
+                     loadImage('/showcase/sketches/dithers/4x68.png'), 
+                     loadImage('/showcase/sketches/dithers/6x42 LINES.png'), 
+                     loadImage('/showcase/sketches/dithers/5x30 CIRCLES.png'),
+                     loadImage('/showcase/sketches/dithers/5x30 CIRCUITS.png'),
+                     loadImage('/showcase/sketches/dithers/5x45 DiagLines.png')];
+}
+
+function dither(image) {
+  this.image = image;
+  this.width = this.image.width;
+  this.steps = this.image.height/this.width;
+  this.image.loadPixels();
+  //console.log(this.file + ", " + this.image + ", " + this.width + ", " + this.steps);
+}
+
+function ditherColor(color, x1, y1) {
+  var c = brightness(color);
+  var mX = x1 % dithers[currentDither].width;
+  var mY = y1 % dithers[currentDither].width;
+  var level = ceil(map(c, 0, 100, dithers[currentDither].steps, 0));
+  
+    var newColor = dithers[currentDither].image.get(mX, mY+(level-1)*dithers[currentDither].width);
+
+  if(newColor.toString('#rrggbb') == "255,255,255,255") {
+     return true;
+     }
+  else {
+    return false;
+  }
 }
 
 function setup() {
