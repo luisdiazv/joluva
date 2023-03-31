@@ -1,6 +1,3 @@
-// instance mode of: 
-// https://p5js.org/examples/color-relativity.html
-
 var columns, rows;
 let scale = 25; 
 var terrain = [];

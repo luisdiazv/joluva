@@ -222,3 +222,8 @@ Filtros de convolución para la realidad virtual y aumentada: los filtros de con
 <p style="text-align: justify;">
 Filtros de convolución en tiempo real: el procesamiento de imágenes en tiempo real es un desafío importante. Los investigadores están trabajando en el desarrollo de algoritmos de filtro de convolución que puedan procesar imágenes de alta resolución en tiempo real, lo que podría tener importantes aplicaciones en la robótica, la visión por computadora y otros campos.
 </p>
+
+### Referencias
+
+[1] Pequeños fragmentos de código tomados con autorización de los propietarios de https://github.com/Visual-Computing-2022-2/Talleres 
+

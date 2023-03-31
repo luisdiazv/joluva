@@ -261,3 +261,7 @@ Compresión de imágenes: Los histogramas RGB también pueden ser utilizados par
 <p style="text-align: justify;">
 Análisis de calidad de imagen: Los histogramas RGB pueden ser utilizados para analizar la calidad de imagen de una fotografía. Por ejemplo, se puede analizar la distribución de los valores de los píxeles en las diferentes bandas de color para determinar si la imagen tiene una buena exposición y un contraste adecuado.
 </p>
+
+### Referencias
+
+[1] Pequeños fragmentos de código tomados con autorización de los propietarios de https://github.com/Visual-Computing-2022-2/Talleres 
