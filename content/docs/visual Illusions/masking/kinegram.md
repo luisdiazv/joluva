@@ -2,12 +2,7 @@
 weight: 3
 ---
 
-
-
 ## Kinegram
-
-
-
 
 ### Problema a resolver
 Implementar un kinegrama.

@@ -5,8 +5,6 @@ weight: 6
 
 ## Biocular cues
 
-### Ejercicio 10
-
 ### Problema
 Implemente un sketch en 2D que engañe al ojo para hacerlo percibir imágenes en 3D
 
@@ -40,7 +38,6 @@ let maxHouseWidth = 60;
 let first = new Array();
 let second = new Array();
 let third = new Array(); 
-
 
 function setup() {
     createCanvas(500, 300);

@@ -3,7 +3,7 @@ weight: 5
 ---
 # __Temporal Coherence__
 
-### Ejercicio 9 
+### Problema
 Implementar una animación usando key frames.
 
 ### Introducción

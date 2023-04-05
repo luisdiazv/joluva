@@ -3,9 +3,6 @@ weight: 3
 ---
 ## Lightness variation
 
-
-
-
 ### Problema a resolver
 Implementar un programa que permita variar la luminosidad de una imagen.
 

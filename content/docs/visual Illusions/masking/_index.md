@@ -1,8 +1,9 @@
 ---
 bookCollapseSection: true
+weight: 3
 ---
 
-### Ejercicio 1
+# Masking
 
 
 {{<section>}}

@@ -3,8 +3,6 @@ weight: 3
 ---
 ## Moiré pattern
 
-
-
 ### Problema a resolver
 Implementar un patrón de Moiré.
 

@@ -1,9 +1,6 @@
 ---
 weight: 3
 ---
-
-
-
 ## Convolution
 
 
