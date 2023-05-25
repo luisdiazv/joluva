@@ -4,7 +4,8 @@ uniform float radius;
 uniform vec2 mouse;
 uniform sampler2D texture;
 uniform vec2 texOffset;
-varying vec2 texcoords2;
+varying vec2 texcoords2;let mask;
+
 
 
 
