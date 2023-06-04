@@ -3,15 +3,24 @@ const GRID_SIZE = 30;
 const WITDH = 600;
 const HEIGHT = 600;
 const CUBE_SIZE = 300;
+let points, globalPoints;
 let rot = false;
 let from, to;
 let snake, food;
 let cam;
+let myFont;
+
 
 function setup() {
+   points = 0;
+   globalPoints = 0;
+   myFont = loadFont('/showcase/sketches/blox/Blox2.ttf');
    createCanvas(WITDH, HEIGHT, WEBGL);
+   pg = createGraphics(width, height);
    cam = createCamera();
-   frameRate(3);
+   fillFoodPlaces();
+   
+   frameRate(7);
    newGame();
 }
 
@@ -48,30 +57,32 @@ const reference = () =>{
    pop();
 }
 
-let cont = 0;
+
 
 function draw() {
    background(0);
-   camera(0,0,900);
+
+   textFont(myFont, 36);
+   beginHUD();
+   text('Puntos '+points, 10, 40);
+   text('Mejor '+globalPoints, 10, 80);
+   endHUD();
+   
    
    fill(255,255,255);
    box(CUBE_SIZE);
-   reference();
+   //reference();
+   
 
 
-   
-   
-    //console.log(cont);
    if(!snake.isDead){
       drawSnake();
    } else {
+      globalPoints = max(globalPoints,points);
+      points = 0;
       newGame()
    }
-   cont = cont+1;
-   if(cont==5){
-    cont = 0;
-    snake.length++;
-   }
+   
 }
 
 function drawSnake() {
@@ -87,9 +98,8 @@ function drawSnake() {
    snake.show();
 
    // Handle when snake eat food
-   if(snake.head.x == food.x && snake.head.y == food.y){
-      eatFood();
-   }
+   if(snake.head.x == food.x && snake.head.y == food.y && snake.head.z == food.z)eatFood();
+   
 }
 
 function newGame() {
@@ -99,12 +109,13 @@ function newGame() {
 
 function eatFood() {
    snake.length++;
+   points++;
    food.newFood();
 }
 
 function keyPressed() {
-   if(snake.cubeFace==1 || snake.cubeFace==5){
-      if (keyCode == UP_ARROW) {
+   if(snake.cubeFace==1 ){
+      if (keyCode == UP_ARROW && snake.vel.y != 1) {
          snake.vel.y = -1;
          snake.vel.z = 0;
       } else if (keyCode == DOWN_ARROW && snake.vel.y != -1) {
@@ -130,6 +141,34 @@ function keyPressed() {
       } else if (keyCode == RIGHT_ARROW && snake.vel.z != -1) {
          snake.vel.y = 0;
          snake.vel.z = 1;
+      }
+   }else if(snake.cubeFace==3){
+      if (keyCode == UP_ARROW && snake.vel.x != -1) {
+         snake.vel.z = 0;
+         snake.vel.x = 1;
+      } else if (keyCode == DOWN_ARROW && snake.vel.x != 1) {
+         snake.vel.z = 0;
+         snake.vel.x = -1;
+      }  else if (keyCode == LEFT_ARROW && snake.vel.z != -1) {
+         snake.vel.z = 1;
+         snake.vel.x = 0;
+      } else if (keyCode == RIGHT_ARROW && snake.vel.z != 1) {
+         snake.vel.z = -1;
+         snake.vel.x = 0;
+      }
+   }else if(snake.cubeFace==4){
+      if (keyCode == DOWN_ARROW && snake.vel.x != -1) {
+         snake.vel.z = 0;
+         snake.vel.x = 1;
+      } else if (keyCode == UP_ARROW && snake.vel.x != 1) {
+         snake.vel.z = 0;
+         snake.vel.x = -1;
+      }  else if (keyCode == LEFT_ARROW && snake.vel.z != -1) {
+         snake.vel.z = 1;
+         snake.vel.x = 0;
+      } else if (keyCode == RIGHT_ARROW && snake.vel.z != 1) {
+         snake.vel.z = -1;
+         snake.vel.x = 0;
       }
    }else if(snake.cubeFace==5){
       if (keyCode == UP_ARROW && snake.vel.y != 1) {
@@ -163,35 +202,52 @@ function keyPressed() {
    
 }
 
-
+let foodPlaces = new Set();
+const fillFoodPlaces = () =>{
+   for(let i = -CUBE_SIZE/2;i<=CUBE_SIZE/2;i+=GRID_SIZE){
+      for(let j = -CUBE_SIZE/2;j<=CUBE_SIZE/2;j+=GRID_SIZE){
+         foodPlaces.add(createVector(i,j,CUBE_SIZE/2));
+         foodPlaces.add(createVector(i,j,-CUBE_SIZE/2));
+         foodPlaces.add(createVector(i,CUBE_SIZE/2,j));
+         foodPlaces.add(createVector(i,-CUBE_SIZE/2,j));
+         foodPlaces.add(createVector(CUBE_SIZE/2,i,j));
+         foodPlaces.add(createVector(-CUBE_SIZE/2,i,j)); 
+      }
+   }
+}
 
 class Food{
     constructor () {
        this.newFood();
     }
     newFood(){
-       this.x = Math.floor(random(width));
-       this.y = Math.floor(random(height));
- 
-       this.x = Math.floor(this.x / GRID_SIZE) * GRID_SIZE;
-       this.y = Math.floor(this.y / GRID_SIZE) * GRID_SIZE;
+       const foodPlacesArray = Array.from(foodPlaces); 
+       const randomIndex = Math.floor(Math.random() * foodPlacesArray.length);
+       const randomElement = foodPlacesArray[randomIndex];
+       this.x = randomElement.x;
+       this.y = randomElement.y;
+       this.z = randomElement.z;
+       
     }
     show(){
-       fill(255, 40, 0);
-       rect(this.x, this.y, GRID_SIZE, GRID_SIZE);
+      push();
+      translate(this.x, this.y, this.z);
+      fill(25,255,25);
+      box(GRID_SIZE);
+      pop();   
     }
  }
 
-/*
-Convención de caras del cubo
-1 = {x:1,y:0,z:0}.   
-2 = {x:-1,y:0,z:0}
-3 = {x:0,y:1,z:0}
-4 = {x:0,y:-1,z:0}
-5 = {x:0,y:0,z:1}
-6 = {x:0,y:0,z:-1}
+const camPos = {
+   1 : {x:900,y:0,z:0},   
+   2 : {x:-900,y:0,z:0},
+   3 : {x:0.1,y:900,z:0},
+   4 : {x:0.1,y:-900,z:0},
+   5 : {x:0,y:0,z:900},
+   6 : {x:0,y:0,z:-900},
 
-*/
+}
+
 
 
 
@@ -201,26 +257,26 @@ const faceChange = (curFace,x,y,z) =>{
    let newFace = curFace, newSnakeVel;
    if(curFace==1 || curFace==2){
       let flag = false;
-      if(y==CUBE_SIZE/2+GRID_SIZE)newFace = 3,flag = true; 
-      else if(y==-CUBE_SIZE/2-GRID_SIZE)newFace = 4,flag = true;
-      else if(z==CUBE_SIZE/2+GRID_SIZE)newFace = 5,flag = true;
-      else if(z==-CUBE_SIZE/2-GRID_SIZE)newFace = 6,flag = true;
+      if(y==CUBE_SIZE/2)newFace = 3,flag = true; 
+      else if(y==-CUBE_SIZE/2)newFace = 4,flag = true;
+      else if(z==CUBE_SIZE/2)newFace = 5,flag = true;
+      else if(z==-CUBE_SIZE/2)newFace = 6,flag = true;
       if(curFace==1 && flag)newSnakeVel = createVector(-1,0,0);
       else if(curFace==2 && flag)newSnakeVel = createVector(1,0,0);
    }else if(curFace==3 || curFace==4){
       let flag = false;
-      if(x==CUBE_SIZE/2+GRID_SIZE)newFace = 1,flag = true; 
-      else if(x==-CUBE_SIZE/2-GRID_SIZE)newFace = 2,flag = true;
-      else if(z==CUBE_SIZE/2+GRID_SIZE)newFace = 5,flag = true;
-      else if(z==-CUBE_SIZE/2-GRID_SIZE)newFace = 6,flag = true;
+      if(x==CUBE_SIZE/2)newFace = 1,flag = true; 
+      else if(x==-CUBE_SIZE/2)newFace = 2,flag = true;
+      else if(z==CUBE_SIZE/2)newFace = 5,flag = true;
+      else if(z==-CUBE_SIZE/2)newFace = 6,flag = true;
       if(curFace==3 && flag)newSnakeVel = createVector(0,-1,0);
       else if(curFace==4 && flag) newSnakeVel = createVector(0,1,0);
    }else if(curFace==5 || curFace==6){
       let flag = false;
-      if(x==CUBE_SIZE/2+GRID_SIZE)newFace = 1,flag = true; 
-      else if(x==-CUBE_SIZE/2-GRID_SIZE)newFace = 2,flag = true;
-      else if(y==CUBE_SIZE/2+GRID_SIZE)newFace = 3,flag = true;
-      else if(y==-CUBE_SIZE/2-GRID_SIZE)newFace = 4,flag = true;
+      if(x==CUBE_SIZE/2)newFace = 1,flag = true; 
+      else if(x==-CUBE_SIZE/2)newFace = 2,flag = true;
+      else if(y==CUBE_SIZE/2)newFace = 3,flag = true;
+      else if(y==-CUBE_SIZE/2)newFace = 4,flag = true;
       if(curFace==5 && flag)newSnakeVel = createVector(0,0,-1);
       else if(curFace==6 && flag) newSnakeVel = createVector(0,0,1);
    }
@@ -231,13 +287,14 @@ const faceChange = (curFace,x,y,z) =>{
       snake.vel.z = newSnakeVel.z;
    }
    to = newFace;
+   camera(camPos[newFace].x,camPos[newFace].y,camPos[newFace].z,0,0,0);
    snake.cubeFace = newFace;
 }
 
  class Snake {
     constructor(){
        this.vel = createVector(0,1,0);
-       this.head = createVector(CUBE_SIZE/2+GRID_SIZE,0,0);
+       this.head = createVector(CUBE_SIZE/2,0,0);
        this.cubeFace = 1;
        this.length = 0;
        this.body = [];
@@ -245,14 +302,15 @@ const faceChange = (curFace,x,y,z) =>{
     }
     update(){
        this.body.push(createVector(this.head.x, this.head.y, this.head.z));
- 
+        
        this.head.x += this.vel.x * GRID_SIZE;
        this.head.y += this.vel.y * GRID_SIZE;
        this.head.z += this.vel.z * GRID_SIZE;
-       
+       foodPlaces.delete(createVector(this.head.x,this.head.y,this.head.z));
+
        faceChange(this.cubeFace,this.head.x,this.head.y,this.head.z);
 
-       if(this.length < this.body.length)this.body.shift();
+       if(this.length < this.body.length)foodPlaces.add(this.body[0]),this.body.shift();
        
  
        for(let vector of this.body){
