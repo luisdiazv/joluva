@@ -5,12 +5,15 @@ let mosaic;
 let resolution;
 let video_on;
 let mode;
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+  }
 
 function preload() {
   // paintings are stored locally in the /sketches/shaders/paintings dir
   // and named sequentially as: p1.jpg, p2.jpg, ... p30.jpg
   // so we pick up one randomly just for fun:
-  image_src = loadImage(`/showcase/sketches/caramia.jpg`);
+  image_src = loadImage(`/showcase/sketches/cats_bank/${getRandomInt(6)}.jpg`);
 
   mosaic = readShader('/showcase/sketches/shaders/pixelator.frag',
                       { varyings: Tree.texcoords2 });
