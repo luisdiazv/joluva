@@ -1,11 +1,12 @@
 const GRID_SIZE = 30;
-
+const TRANS_STEPS = 100;
 const WITDH = 600;
 const HEIGHT = 600;
 const CUBE_SIZE = 300;
+let contSteps = 0;
 let points, globalPoints;
 let rot = false;
-let from, to;
+let from = 0, to = 0;
 let snake, food;
 let cam;
 let myFont;
@@ -19,8 +20,8 @@ function setup() {
    pg = createGraphics(width, height);
    cam = createCamera();
    fillFoodPlaces();
-   
-   frameRate(7);
+   camera(900,0,0);
+   frameRate(100);
    newGame();
 }
 
@@ -71,17 +72,18 @@ function draw() {
    
    fill(255,255,255);
    box(CUBE_SIZE);
-   //reference();
-   
-
-
-   if(!snake.isDead){
+   reference();
+   if((to.x!=from.x || to.y!=from.y ||to.z!=from.z) || contSteps>0){
+      transition();
+      snake.show();
+   }else if(!snake.isDead){
       drawSnake();
    } else {
       globalPoints = max(globalPoints,points);
       points = 0;
       newGame()
    }
+
    
 }
 
@@ -248,12 +250,20 @@ const camPos = {
 
 }
 
+const f = (a) => {
+   if(a==1)return{x:900,y:0,z:0};   
+   if(a==2)return{x:-900,y:0,z:0};
+   if(a==3)return{x:0.1,y:900,z:0};
+   if(a==4)return{x:0.1,y:-900,z:0};
+   if(a==5)return{x:0,y:0,z:900};
+   if(a==6)return{x:0,y:0,z:-900};
 
+}
 
 
 
 const faceChange = (curFace,x,y,z) =>{
-   from = curFace;
+   
    let newFace = curFace, newSnakeVel;
    if(curFace==1 || curFace==2){
       let flag = false;
@@ -286,9 +296,15 @@ const faceChange = (curFace,x,y,z) =>{
       snake.vel.y = newSnakeVel.y;
       snake.vel.z = newSnakeVel.z;
    }
-   to = newFace;
-   camera(camPos[newFace].x,camPos[newFace].y,camPos[newFace].z,0,0,0);
+
+   from = f(curFace);
+   to = f(newFace);
+   console.log(curFace,newFace);
+   console.log('faceChange',from,to);
+   //diagonal 75 bis #20 74
+   //camera(camPos[newFace].x,camPos[newFace].y,camPos[newFace].z,0,0,0);
    snake.cubeFace = newFace;
+   console.log('snakeFace',snake.cubeFace);
 }
 
  class Snake {
@@ -339,4 +355,27 @@ const faceChange = (curFace,x,y,z) =>{
 
        }
     }
+ }
+
+
+ const transition = () =>{
+   console.log(from,to);
+   console.log('steps',contSteps);
+   if(contSteps==TRANS_STEPS){
+      contSteps = 0;
+      from = to;
+   }else{
+      if(from.x<to.x ) from.x += 900/TRANS_STEPS;
+      else if(from.x>to.x) from.x -= 900/TRANS_STEPS;
+      if(from.y<to.y) from.y += 900/TRANS_STEPS;
+      else if(from.y>to.y) from.y -= 900/TRANS_STEPS;
+      if(from.z<to.z) from.z += 900/TRANS_STEPS;
+      else if(from.z>to.z) from.z -= 900/TRANS_STEPS;
+      contSteps++;
+   }
+   
+   
+
+   camera(from.x,from.y,from.z,0,0,0);
+
  }
