@@ -13,7 +13,7 @@ function preload() {
   // paintings are stored locally in the /sketches/shaders/paintings dir
   // and named sequentially as: p1.jpg, p2.jpg, ... p30.jpg
   // so we pick up one randomly just for fun:
-  image_src = loadImage(`/showcase/sketches/cats_bank/${getRandomInt(6)}.jpg`);
+  image_src = loadImage(`/showcase/sketches/cats_bank/${getRandomInt(7)}.jpg`);
 
   mosaic = readShader('/showcase/sketches/shaders/pixelator.frag',
                       { varyings: Tree.texcoords2 });
