@@ -1,5 +1,5 @@
 const GRID_SIZE = 30;
-const TRANS_STEPS = 100;
+const TRANS_STEPS = 10;
 const WITDH = 600;
 const HEIGHT = 600;
 const CUBE_SIZE = 300;
@@ -21,7 +21,7 @@ function setup() {
    cam = createCamera();
    fillFoodPlaces();
    camera(900,0,0);
-   frameRate(100);
+   frameRate(10);
    newGame();
 }
 
@@ -62,7 +62,6 @@ const reference = () =>{
 
 function draw() {
    background(0);
-
    textFont(myFont, 36);
    beginHUD();
    text('Puntos '+points, 10, 40);
@@ -72,7 +71,7 @@ function draw() {
    
    fill(255,255,255);
    box(CUBE_SIZE);
-   reference();
+   //reference();
    if((to.x!=from.x || to.y!=from.y ||to.z!=from.z) || contSteps>0){
       transition();
       snake.show();
@@ -299,12 +298,8 @@ const faceChange = (curFace,x,y,z) =>{
 
    from = f(curFace);
    to = f(newFace);
-   console.log(curFace,newFace);
-   console.log('faceChange',from,to);
-   //diagonal 75 bis #20 74
-   //camera(camPos[newFace].x,camPos[newFace].y,camPos[newFace].z,0,0,0);
    snake.cubeFace = newFace;
-   console.log('snakeFace',snake.cubeFace);
+
 }
 
  class Snake {
@@ -359,12 +354,12 @@ const faceChange = (curFace,x,y,z) =>{
 
 
  const transition = () =>{
-   console.log(from,to);
-   console.log('steps',contSteps);
    if(contSteps==TRANS_STEPS){
       contSteps = 0;
       from = to;
    }else{
+      if(to.x==0.1 && floor(from.x)==from.x)from.x+=0.1;
+      if(from.x==0.1 && floor(from.x)!=from.x && to.x!=0.1)from.x-=0.1;
       if(from.x<to.x ) from.x += 900/TRANS_STEPS;
       else if(from.x>to.x) from.x -= 900/TRANS_STEPS;
       if(from.y<to.y) from.y += 900/TRANS_STEPS;
