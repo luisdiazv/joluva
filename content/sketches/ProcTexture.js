@@ -13,7 +13,6 @@ function setup() {
   pg.noStroke();
   pg.textureMode(NORMAL);
   pg.shader(bricks);
-  //pg.emitResolution(bricks);
   bricks.setUniform('u_resolution', [200,200]);
   bricks.setUniform('u_temp', 5);
   pg.quad(-1, -1, 1, -1, 1, 1, -1, 1);
