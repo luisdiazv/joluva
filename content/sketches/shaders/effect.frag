@@ -41,7 +41,6 @@ vec3 gaussianBlur( sampler2D t, vec2 texUV, vec2 stepSize ){
 	return colOut;                                                                                                                                                   
 } 
 
-
 void main() {
   vec2 uv = vTexCoord;
   uv = 1.0 - uv;
